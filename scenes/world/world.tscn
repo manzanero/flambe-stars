@@ -1,0 +1,205 @@
+[gd_scene load_steps=23 format=3 uid="uid://c0gji61ochlsu"]
+
+[ext_resource type="PackedScene" uid="uid://btvcbnhiqh5c2" path="res://assets/player_ship/ship.tscn" id="1_x7bjc"]
+[ext_resource type="Texture2D" uid="uid://ec2f1iwl326r" path="res://resources/galaxy_defiance/assets/space.png" id="2_2qgmv"]
+[ext_resource type="Texture2D" uid="uid://ciutuwneoq14f" path="res://resources/galaxy_defiance/assets/far_stars.png" id="3_0ge7n"]
+[ext_resource type="Texture2D" uid="uid://oujcgollgg1q" path="res://resources/galaxy_defiance/assets/close_stars.png" id="4_pogux"]
+[ext_resource type="PackedScene" uid="uid://cg71styjtyqv" path="res://assets/enemies/green_enemy/green_enemy.tscn" id="5_25mob"]
+
+[sub_resource type="Animation" id="Animation_ljyc1"]
+resource_name = "paralax"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/Background:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fq8ds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/Background:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.415, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cq6ts"]
+_data = {
+"RESET": SubResource("Animation_fq8ds"),
+"paralax": SubResource("Animation_ljyc1")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_ebf23"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cct5g"]
+shading_mode = 0
+albedo_texture = ExtResource("2_2qgmv")
+uv1_scale = Vector3(2, 2, 2)
+uv1_offset = Vector3(0, 2.415, 0)
+texture_filter = 0
+
+[sub_resource type="Animation" id="Animation_0ge77"]
+resource_name = "paralax_far"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundFar:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ex3uy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundFar:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3r3ld"]
+_data = {
+"RESET": SubResource("Animation_ex3uy"),
+"paralax_far": SubResource("Animation_0ge77")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_8satk"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4w1kh"]
+transparency = 4
+albedo_texture = ExtResource("3_0ge7n")
+uv1_scale = Vector3(2, 2, 2)
+texture_filter = 0
+
+[sub_resource type="Animation" id="Animation_kku0m"]
+resource_name = "paralax_close"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundClose:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_axvo2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundClose:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tfx5c"]
+_data = {
+"RESET": SubResource("Animation_axvo2"),
+"paralax_close": SubResource("Animation_kku0m")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_vkw6g"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcsbo"]
+transparency = 4
+albedo_texture = ExtResource("4_pogux")
+uv1_scale = Vector3(2, 2, 2)
+texture_filter = 0
+
+[sub_resource type="Sky" id="Sky_x35fu"]
+
+[sub_resource type="Environment" id="Environment_vtmpe"]
+background_mode = 2
+sky = SubResource("Sky_x35fu")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="World" type="Node3D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_x7bjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00567722, -1.19209e-07, -0.873431)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.517639, 0.855599, 0, -0.855599, 0.517639, 0, 19.2697, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_cq6ts")
+}
+autoplay = "paralax"
+speed_scale = 0.1
+
+[node name="Background" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.944749, 0.327795, 0, -0.327795, 0.944749, 0, 11.1344, -54.1313)
+mesh = SubResource("QuadMesh_ebf23")
+surface_material_override/0 = SubResource("StandardMaterial3D_cct5g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/Background"]
+libraries = {
+"": SubResource("AnimationLibrary_3r3ld")
+}
+autoplay = "paralax_far"
+speed_scale = 0.2
+
+[node name="BackgroundFar" type="MeshInstance3D" parent="Camera3D/Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+mesh = SubResource("QuadMesh_8satk")
+surface_material_override/0 = SubResource("StandardMaterial3D_4w1kh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/Background/BackgroundFar"]
+libraries = {
+"": SubResource("AnimationLibrary_tfx5c")
+}
+autoplay = "paralax_close"
+speed_scale = 0.3
+
+[node name="BackgroundClose" type="MeshInstance3D" parent="Camera3D/Background/BackgroundFar"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, 0, 1)
+mesh = SubResource("QuadMesh_vkw6g")
+surface_material_override/0 = SubResource("StandardMaterial3D_kcsbo")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vtmpe")
+
+[node name="GreenEnemy" parent="." instance=ExtResource("5_25mob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47.367)
