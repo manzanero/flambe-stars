@@ -1,10 +1,33 @@
-[gd_scene load_steps=23 format=3 uid="uid://c0gji61ochlsu"]
+[gd_scene load_steps=31 format=3 uid="uid://c0gji61ochlsu"]
 
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_17ag5"]
 [ext_resource type="PackedScene" uid="uid://btvcbnhiqh5c2" path="res://assets/player_ship/ship.tscn" id="1_x7bjc"]
 [ext_resource type="Texture2D" uid="uid://ec2f1iwl326r" path="res://resources/galaxy_defiance/assets/space.png" id="2_2qgmv"]
+[ext_resource type="Resource" uid="uid://bge685ekygu1m" path="res://scenes/world/debug.game_stats.tres" id="2_j8e00"]
 [ext_resource type="Texture2D" uid="uid://ciutuwneoq14f" path="res://resources/galaxy_defiance/assets/far_stars.png" id="3_0ge7n"]
 [ext_resource type="Texture2D" uid="uid://oujcgollgg1q" path="res://resources/galaxy_defiance/assets/close_stars.png" id="4_pogux"]
-[ext_resource type="PackedScene" uid="uid://cg71styjtyqv" path="res://assets/enemies/green_enemy/green_enemy.tscn" id="5_25mob"]
+[ext_resource type="PackedScene" uid="uid://bbupoke4b7skg" path="res://assets/enemies/enemy_generator.tscn" id="5_0olgv"]
+[ext_resource type="PackedScene" uid="uid://c64gomlebinpb" path="res://assets/ui/main_menu/main_menu.tscn" id="6_fjvfm"]
+[ext_resource type="AudioStream" uid="uid://cvuwsdwkfkaon" path="res://resources/music/ducktales-nes-moon.ogg" id="6_we3uv"]
+[ext_resource type="PackedScene" uid="uid://brc78pcm5b5fm" path="res://assets/ui/game_over/game_over.tscn" id="7_fua02"]
+[ext_resource type="Script" path="res://assets/components/spawner_component.gd" id="9_4taq2"]
+[ext_resource type="LabelSettings" uid="uid://bcfrxwrsv2co4" path="res://resources/galaxy_defiance/fonts/default.label_settings.tres" id="11_70eqk"]
+[ext_resource type="Texture2D" uid="uid://csf5uw5vivrpp" path="res://resources/music/audio.png" id="13_5c2bf"]
+
+[sub_resource type="Animation" id="Animation_fq8ds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/Background:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.415, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ljyc1"]
 resource_name = "paralax"
@@ -20,21 +43,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_fq8ds"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/Background:surface_material_override/0:uv1_offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 2.415, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cq6ts"]
@@ -53,6 +61,21 @@ uv1_scale = Vector3(2, 2, 2)
 uv1_offset = Vector3(0, 2.415, 0)
 texture_filter = 0
 
+[sub_resource type="Animation" id="Animation_ex3uy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundFar:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_0ge77"]
 resource_name = "paralax_far"
 loop_mode = 1
@@ -67,21 +90,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ex3uy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundFar:surface_material_override/0:uv1_offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3r3ld"]
@@ -99,6 +107,21 @@ albedo_texture = ExtResource("3_0ge7n")
 uv1_scale = Vector3(2, 2, 2)
 texture_filter = 0
 
+[sub_resource type="Animation" id="Animation_axvo2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundClose:surface_material_override/0:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_kku0m"]
 resource_name = "paralax_close"
 loop_mode = 1
@@ -113,21 +136,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_axvo2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundClose:surface_material_override/0:uv1_offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tfx5c"]
@@ -154,9 +162,8 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="World" type="Node3D"]
-
-[node name="Ship" parent="." instance=ExtResource("1_x7bjc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00567722, -1.19209e-07, -0.873431)
+script = ExtResource("1_17ag5")
+game_stats = ExtResource("2_j8e00")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.517639, 0.855599, 0, -0.855599, 0.517639, 0, 19.2697, 0)
@@ -201,5 +208,64 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kcsbo")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vtmpe")
 
-[node name="GreenEnemy" parent="." instance=ExtResource("5_25mob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -47.367)
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_we3uv")
+autoplay = true
+
+[node name="EnemyGenerator" parent="." instance=ExtResource("5_0olgv")]
+
+[node name="SpawnerComponent" type="Node3D" parent="."]
+script = ExtResource("9_4taq2")
+scene = ExtResource("1_x7bjc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("6_fjvfm")]
+unique_name_in_owner = true
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("7_fua02")]
+unique_name_in_owner = true
+visible = false
+game_stats = ExtResource("2_j8e00")
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 48.0
+grow_horizontal = 0
+text = "Highscore
+0
+Score
+0"
+label_settings = ExtResource("11_70eqk")
+horizontal_alignment = 2
+
+[node name="MusicSlider" type="VSlider" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 27.0
+offset_bottom = 75.0
+scale = Vector2(0.5, 0.5)
+size_flags_vertical = 0
+max_value = 1.0
+step = 0.01
+value = 0.5
+scrollable = false
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 16)
+offset_left = 8.0
+offset_top = 41.0
+offset_right = 22.0
+offset_bottom = 57.0
+texture = ExtResource("13_5c2bf")
+expand_mode = 1
+stretch_mode = 5

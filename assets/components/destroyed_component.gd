@@ -3,7 +3,7 @@ class_name DestroyedComponent
 extends Node
 
 # Export the actor this component will operate on
-@export var actor: Node2D
+@export var actor: Node3D
 
 # Grab access to the stats so we can tell when the health has reached zero
 @export var stats_component: StatsComponent

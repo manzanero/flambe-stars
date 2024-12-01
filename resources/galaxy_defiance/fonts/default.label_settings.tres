@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bcfrxwrsv2co4"]
+
+[ext_resource type="FontFile" uid="uid://dovm3v46wuefk" path="res://resources/galaxy_defiance/fonts/kenney_mini_square.ttf" id="1_2j2x1"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_2j2x1")
+font_size = 8

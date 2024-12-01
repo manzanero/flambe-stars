@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://yom6ll844apd"]
+[gd_scene load_steps=13 format=3 uid="uid://yom6ll844apd"]
 
 [ext_resource type="Script" path="res://assets/projectiles/laser/laser.gd" id="1_7nkna"]
 [ext_resource type="Texture2D" uid="uid://bc2pbnu76vtrn" path="res://resources/galaxy_defiance/assets/laser_small.png" id="1_87uba"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://assets/components/move_component.gd" id="4_mugia"]
 [ext_resource type="Script" path="res://assets/components/scale_component.gd" id="6_xy2yi"]
 [ext_resource type="Script" path="res://assets/components/flash_component.gd" id="7_pikk7"]
+[ext_resource type="Script" path="res://assets/components/hitbox_component.gd" id="8_or6vx"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jovsf"]
 _surfaces = [{
@@ -30,18 +31,35 @@ script = ExtResource("3_25lnv")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_jovsf")])
 material = SubResource("StandardMaterial3D_m7nbl")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tl2x7"]
+radius = 0.15
+height = 0.8
+
 [node name="Laser" type="Node3D"]
 script = ExtResource("1_7nkna")
 
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="."]
+[node name="Anchor" type="Node3D" parent="."]
+
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="Anchor"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.5)
 mesh = SubResource("ArrayMesh_jovsf")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_m7nbl")
 script = ExtResource("2_giw17")
 texture = ExtResource("1_87uba")
 pixel_size = 0.1
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_285ms")
+
+[node name="HitboxComponent" type="Area3D" parent="Anchor"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("8_or6vx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Anchor/HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.4)
+shape = SubResource("CapsuleShape3D_tl2x7")
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("4_mugia")
@@ -54,11 +72,11 @@ autostart = true
 
 [node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("6_xy2yi")
-sprite = NodePath("../SpriteMeshInstance")
-scale_amount = Vector3(2, 2, 2)
+sprite = NodePath("../Anchor/SpriteMeshInstance")
+scale_amount = Vector3(1.5, 2, 2)
 scale_duration = 1.0
 
 [node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("7_pikk7")
-sprite = NodePath("../SpriteMeshInstance")
+sprite = NodePath("../Anchor/SpriteMeshInstance")
 flash_duration = 0.1

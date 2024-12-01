@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cekpwsv4av731"]
+[gd_scene load_steps=20 format=3 uid="uid://cekpwsv4av731"]
 
 [ext_resource type="Script" path="res://assets/enemies/enemy.gd" id="1_2wlcm"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_dnuvi"]
@@ -10,17 +10,23 @@
 [ext_resource type="Script" path="res://assets/components/shake_component.gd" id="8_wme1p"]
 [ext_resource type="Script" path="res://assets/components/hitbox_component.gd" id="9_t44l5"]
 [ext_resource type="Script" path="res://assets/components/hurtbox_component.gd" id="10_70i6m"]
+[ext_resource type="Script" path="res://assets/components/hurt_component.gd" id="11_vxrah"]
+[ext_resource type="Script" path="res://assets/components/spawner_component.gd" id="12_0adsk"]
+[ext_resource type="PackedScene" uid="uid://dtpul5ohgyx35" path="res://assets/explosion_effect/explosion_effect.tscn" id="13_h8dl1"]
+[ext_resource type="Script" path="res://assets/components/destroyed_component.gd" id="14_ny76m"]
+[ext_resource type="Script" path="res://assets/components/score_component.gd" id="15_8ws0x"]
+[ext_resource type="Resource" uid="uid://bge685ekygu1m" path="res://scenes/world/debug.game_stats.tres" id="16_hdmkg"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_q6fuc"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_1jpqe"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qcab"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1efo"]
 
-[sub_resource type="Resource" id="Resource_i1u6o"]
+[sub_resource type="Resource" id="Resource_ayfny"]
 script = ExtResource("3_6i28t")
 meshes = Array[ArrayMesh]([])
-material = SubResource("StandardMaterial3D_8qcab")
+material = SubResource("StandardMaterial3D_q1efo")
 
-[node name="Enemy" type="Node3D"]
+[node name="Enemy" type="Node3D" groups=["enemies"]]
 script = ExtResource("1_2wlcm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -28,14 +34,14 @@ autoplay = "Idle"
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("ArrayMesh_q6fuc")
+mesh = SubResource("ArrayMesh_1jpqe")
 script = ExtResource("2_dnuvi")
 pixel_size = 0.1
-hframes = 3
+hframes = 2
 frame = 1
 frame_coords = Vector2i(1, 0)
-region_rect = Rect2i(16, 0, 16, 16)
-generated_sprite_mesh = SubResource("Resource_i1u6o")
+region_rect = Rect2i(0, 0, 1, 1)
+generated_sprite_mesh = SubResource("Resource_ayfny")
 
 [node name="StatsComponent" type="Node" parent="."]
 script = ExtResource("4_5or42")
@@ -55,10 +61,33 @@ sprite = NodePath("../SpriteMeshInstance")
 [node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("node")]
 script = ExtResource("8_wme1p")
 node = NodePath("../SpriteMeshInstance")
-
-[node name="HitboxComponent" type="Area3D" parent="."]
-script = ExtResource("9_t44l5")
+shake_amount = 0.2
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("10_70i6m")
+
+[node name="HitboxComponent" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_t44l5")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("11_vxrah")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="SpawnerComponent" type="Node3D" parent="."]
+script = ExtResource("12_0adsk")
+scene = ExtResource("13_h8dl1")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("14_ny76m")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("../SpawnerComponent")
+
+[node name="ScoreComponent" type="Node" parent="."]
+script = ExtResource("15_8ws0x")
+game_stats = ExtResource("16_hdmkg")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbupoke4b7skg"]
+
+[ext_resource type="Script" path="res://assets/enemies/enemy_generator.gd" id="1_d4aau"]
+[ext_resource type="Script" path="res://assets/components/spawner_component.gd" id="2_8ib10"]
+[ext_resource type="Resource" uid="uid://bge685ekygu1m" path="res://scenes/world/debug.game_stats.tres" id="2_qmyvj"]
+
+[node name="EnemyGenerator" type="Node3D"]
+script = ExtResource("1_d4aau")
+game_stats = ExtResource("2_qmyvj")
+
+[node name="SpawnerComponent" type="Node3D" parent="."]
+script = ExtResource("2_8ib10")
+
+[node name="GreenEnemyTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="YellowEnemyTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="PinkEnemyTimer" type="Timer" parent="."]
+process_mode = 4
+wait_time = 3.0
+one_shot = true
+autostart = true

@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dm4pjcmlp87at"]
+
+[ext_resource type="FontFile" uid="uid://dovm3v46wuefk" path="res://resources/galaxy_defiance/fonts/kenney_mini_square.ttf" id="1_r6cl8"]
+
+[resource]
+font = ExtResource("1_r6cl8")
